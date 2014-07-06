@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MalinaViews</string>
+    <string name="stretching_header_list_view">STRETCHING HEADER</string>
+    <string name="scaling_items_list_view">SCALING ITEMS</string>
+    <string name="scaling_view_pager_indicator">SCALING INDICATOR</string>
+
+</resources>
