@@ -15,7 +15,7 @@
             android:layout_centerHorizontal="true"
             android:background="@null"
             android:text="@string/stretching_header_list_view"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/raspberry"
             android:textSize="20sp"/>
 
         <Button
@@ -27,7 +27,7 @@
             android:layout_marginTop="30dp"
             android:background="@null"
             android:text="@string/scaling_items_list_view"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/raspberry"
             android:textSize="20sp"/>
 
         <Button
@@ -39,7 +39,19 @@
             android:layout_marginTop="30dp"
             android:background="@null"
             android:text="@string/scaling_view_pager_indicator"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/raspberry"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/btn_camera_gridview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_scaling_indicator"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:text="@string/camera_grid_view"
+            android:textColor="@color/raspberry"
             android:textSize="20sp"/>
 
     </RelativeLayout>

@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:drawablePadding="5dp"
-        android:textSize="40sp"/>
+        android:textSize="20sp"/>
 
 </LinearLayout>

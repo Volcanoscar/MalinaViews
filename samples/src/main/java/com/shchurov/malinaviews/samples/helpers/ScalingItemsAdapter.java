@@ -10,20 +10,20 @@ import android.widget.TextView;
 
 import com.shchurov.malinaviews.views.R;
 
-public class SampleAdapter extends ArrayAdapter<Item> {
+import static com.shchurov.malinaviews.samples.FragmentScalingItems.*;
 
-    private int resId;
+public class ScalingItemsAdapter extends ArrayAdapter<SampleItem> {
 
-    public SampleAdapter(Context context, int resId, Item[] items) {
-        super(context, resId, items);
-        this.resId = resId;
+    private static final int RES_ID = R.layout.item_scaling;
+
+    public ScalingItemsAdapter(Context context, SampleItem[] items) {
+        super(context, RES_ID, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(resId, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(RES_ID, parent, false);
             convertView.setTag(new ViewHolder(convertView));
         }
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
@@ -41,7 +41,7 @@ public class SampleAdapter extends ArrayAdapter<Item> {
             iv_image = (ImageView) convertView.findViewById(R.id.iv_image);
         }
 
-        void applyData(Item item) {
+        void applyData(SampleItem item) {
             tv_text.setText(item.text);
             iv_image.setImageResource(item.image);
         }

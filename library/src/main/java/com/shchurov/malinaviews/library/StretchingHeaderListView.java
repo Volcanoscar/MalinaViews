@@ -2,7 +2,6 @@ package com.shchurov.malinaviews.library;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,17 +22,17 @@ public class StretchingHeaderListView extends ListView {
 
     public StretchingHeaderListView(Context context) {
         super(context);
-        init(null);
+        init();
     }
 
     public StretchingHeaderListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
+        init();
     }
 
     public StretchingHeaderListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(attrs);
+        init();
     }
 
     @Override
@@ -81,13 +80,7 @@ public class StretchingHeaderListView extends ListView {
         return super.onTouchEvent(event);
     }
 
-    private void init(AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.StretchingHeaderListView);
-            flexibility = a.getFloat(R.styleable.StretchingHeaderListView_flexibility, DEFAULT_FLEXIBILITY);
-            backAnimationTime = a.getInt(R.styleable.StretchingHeaderListView_backAnimationTime, DEFAULT_BACK_ANIMATION_TIME);
-            a.recycle();
-        }
+    private void init() {
         setOverScrollMode(OVER_SCROLL_NEVER);
     }
 

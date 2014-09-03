@@ -14,13 +14,9 @@ import com.shchurov.malinaviews.views.R;
 
 public class FragmentScalingIndicator extends Fragment {
 
-    private FragmentSample[] items = {FragmentSample.createInstance(android.R.color.holo_blue_dark),
-            FragmentSample.createInstance(android.R.color.holo_blue_light), FragmentSample.createInstance(android.R.color.holo_green_dark),
-            FragmentSample.createInstance(android.R.color.holo_green_light), FragmentSample.createInstance(android.R.color.holo_orange_dark),
-            FragmentSample.createInstance(android.R.color.holo_orange_light), FragmentSample.createInstance(android.R.color.holo_purple),
-            FragmentSample.createInstance(android.R.color.holo_red_dark), FragmentSample.createInstance(android.R.color.holo_red_light)};
-
-    private String[] titles = {"Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"};
+    private static final int[] COLORS = {android.R.color.holo_orange_dark, android.R.color.holo_orange_light, android.R.color.holo_blue_dark,
+            android.R.color.holo_blue_light, android.R.color.holo_green_dark, android.R.color.holo_green_light,
+            android.R.color.holo_purple, android.R.color.holo_red_dark, android.R.color.holo_red_light};
 
     public static FragmentScalingIndicator createInstance() {
         return new FragmentScalingIndicator();
@@ -31,15 +27,21 @@ public class FragmentScalingIndicator extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_scaling_indicator, container, false);
         final ScalingViewPagerIndicator indicator = (ScalingViewPagerIndicator) layout.findViewById(R.id.indicator);
         ViewPager vp = (ViewPager) layout.findViewById(R.id.vp);
+        final Fragment[] fragments = new Fragment[COLORS.length];
+        final String[] titles = new String[COLORS.length];
+        for (int i = 0 ; i < COLORS.length; i++) {
+            fragments[i] = FragmentSample.createInstance(COLORS[i]);
+            titles[i] = "Item " + i;
+        }
         vp.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {
-                return items[position];
+                return fragments[position];
             }
 
             @Override
             public int getCount() {
-                return items.length;
+                return fragments.length;
             }
 
             @Override

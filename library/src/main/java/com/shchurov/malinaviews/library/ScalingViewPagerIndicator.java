@@ -1,12 +1,10 @@
 package com.shchurov.malinaviews.library;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,17 +33,17 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
 
     public ScalingViewPagerIndicator(Context context) {
         super(context);
-        init(null);
+        init();
     }
 
     public ScalingViewPagerIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
+        init();
     }
 
     public ScalingViewPagerIndicator(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(attrs);
+        init();
     }
 
     public void setViewPager(ViewPager viewPager) {
@@ -114,18 +112,7 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
         }
     }
 
-    private void init(AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ScalingViewPagerIndicator);
-            titlesOnScreen = a.getInt(R.styleable.ScalingViewPagerIndicator_titlesOnScreen, DEFAULT_TITLES_ON_SCREEN);
-            Log.d("OLOLO", ": " + titlesOnScreen);
-            minScale = a.getFloat(R.styleable.ScalingViewPagerIndicator_minScale, DEFAULT_MIN_SCALE);
-            scaleExponent = a.getFloat(R.styleable.ScalingViewPagerIndicator_scaleExponent, DEFAULT_SCALE_EXPONENT);
-            minAlpha = a.getFloat(R.styleable.ScalingViewPagerIndicator_minAlpha, DEFAULT_MIN_ALPHA);
-            textSize = a.getDimension(R.styleable.ScalingViewPagerIndicator_textSize, DEFAULT_TEXT_SIZE);
-            textColor = a.getColor(R.styleable.ScalingViewPagerIndicator_textColor, DEFAULT_TEXT_COLOR);
-            a.recycle();
-        }
+    private void init() {
         childLayout = new LinearLayout(getContext());
         setHorizontalScrollBarEnabled(false);
         childLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

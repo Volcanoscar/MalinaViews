@@ -1,7 +1,6 @@
 package com.shchurov.malinaviews.library;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
@@ -19,17 +18,17 @@ public class ScalingItemsListView extends ListView implements AbsListView.OnScro
 
     public ScalingItemsListView(Context context) {
         super(context);
-        init(null);
+        init();
     }
 
     public ScalingItemsListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
+        init();
     }
 
     public ScalingItemsListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(attrs);
+        init();
     }
 
     @Override
@@ -52,14 +51,7 @@ public class ScalingItemsListView extends ListView implements AbsListView.OnScro
         }
     }
 
-    private void init(AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ScalingItemsListView);
-            magnifyToCenter = a.getBoolean(R.styleable.ScalingItemsListView_magnifyToCenter, true);
-            minScale = a.getFloat(R.styleable.ScalingItemsListView_minScale, DEFAULT_MIN_SCALE);
-            scaleExponent = a.getFloat(R.styleable.ScalingItemsListView_scaleExponent, DEFAULT_SCALE_EXPONENT);
-            a.recycle();
-        }
+    private void init() {
         super.setOnScrollListener(this);
         setScrollingCacheEnabled(false);
     }
