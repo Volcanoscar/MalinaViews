@@ -6,5 +6,8 @@
     <string name="scaling_items_list_view">SCALING ITEMS</string>
     <string name="scaling_view_pager_indicator">SCALING INDICATOR</string>
     <string name="camera_grid_view">CAMERA GRIDVIEW</string>
+    <string name="tags_view">TAGSVIEW</string>
+    <string name="add_tags">ADD TAGS</string>
+    <string name="done">DONE</string>
 
 </resources>

@@ -1,64 +1,46 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@android:color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_stretching_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@null"
+            style="@style/MenuScreenButton"
             android:text="@string/stretching_header_list_view"
-            android:textColor="@color/raspberry"
-            android:textSize="20sp"/>
+             android:layout_marginTop="0dp"/>
 
         <Button
             android:id="@+id/btn_scaling_items"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_stretching_header"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@null"
-            android:text="@string/scaling_items_list_view"
-            android:textColor="@color/raspberry"
-            android:textSize="20sp"/>
+            style="@style/MenuScreenButton"
+            android:text="@string/scaling_items_list_view" />
 
         <Button
             android:id="@+id/btn_scaling_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_scaling_items"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@null"
-            android:text="@string/scaling_view_pager_indicator"
-            android:textColor="@color/raspberry"
-            android:textSize="20sp"/>
+            style="@style/MenuScreenButton"
+            android:text="@string/scaling_view_pager_indicator" />
 
         <Button
             android:id="@+id/btn_camera_gridview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_scaling_indicator"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@null"
-            android:text="@string/camera_grid_view"
-            android:textColor="@color/raspberry"
-            android:textSize="20sp"/>
+            style="@style/MenuScreenButton"
+            android:text="@string/camera_grid_view" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btn_tagsview"
+            style="@style/MenuScreenButton"
+            android:text="@string/tags_view" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>
