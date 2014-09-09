@@ -9,5 +9,7 @@
     <string name="tags_view">TAGSVIEW</string>
     <string name="add_tags">ADD TAGS</string>
     <string name="done">DONE</string>
+    <string name="animated_textviews">ANIMATED TEXTVIEWS</string>
+    <string name="click_on_me">CLICK ON ME</string>
 
 </resources>

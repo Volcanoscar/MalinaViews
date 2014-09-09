@@ -36,6 +36,11 @@
             style="@style/MenuScreenButton"
             android:text="@string/tags_view" />
 
+        <Button
+            android:id="@+id/btn_animated_textviews"
+            style="@style/MenuScreenButton"
+            android:text="@string/animated_textviews" />
+
     </LinearLayout>
 
     <FrameLayout
