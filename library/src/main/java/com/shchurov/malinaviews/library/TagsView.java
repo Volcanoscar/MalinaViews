@@ -51,6 +51,10 @@ public class TagsView extends ViewGroup {
         addView(editText, 0);
     }
 
+    public void setEditTextVisible(boolean visible) {
+        editText.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
     private InputFilter filter = new InputFilter() {
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
@@ -179,15 +183,17 @@ public class TagsView extends ViewGroup {
             rowHeight = Math.max(childHeight, rowHeight);
             x += childWidth + horizontalSpacing;
         }
-        if (x + editTextMinWidth > rightLimit) {
-            editText.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), childHeightMeasureSpec);
-            y += rowHeight + verticalSpacing;
-            rowHeight = editText.getMeasuredHeight();
-        } else {
-            int editTextHeightMeasureSpec = (childCount == 1) ? childHeightMeasureSpec : MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
-            editText.measure(MeasureSpec.makeMeasureSpec(rightLimit - x, MeasureSpec.EXACTLY), editTextHeightMeasureSpec);
-            if (childCount == 1) {
+        if (editText.getVisibility() != View.GONE) {
+            if (x + editTextMinWidth > rightLimit) {
+                editText.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), childHeightMeasureSpec);
+                y += rowHeight + verticalSpacing;
                 rowHeight = editText.getMeasuredHeight();
+            } else {
+                int editTextHeightMeasureSpec = (childCount == 1) ? childHeightMeasureSpec : MeasureSpec.makeMeasureSpec(rowHeight, MeasureSpec.EXACTLY);
+                editText.measure(MeasureSpec.makeMeasureSpec(rightLimit - x, MeasureSpec.EXACTLY), editTextHeightMeasureSpec);
+                if (childCount == 1) {
+                    rowHeight = editText.getMeasuredHeight();
+                }
             }
         }
         int height = resolveSize(y + verticalSpacing + rowHeight + getPaddingBottom(), heightMeasureSpec);
@@ -216,6 +222,8 @@ public class TagsView extends ViewGroup {
             rowHeight = Math.max(childHeight, rowHeight);
             x += childWidth + horizontalSpacing;
         }
+        if (editText.getVisibility() == View.GONE)
+            return;
         if (x + editTextMinWidth > rightLimit) {
             y += rowHeight + verticalSpacing;
             editText.layout(getPaddingLeft(), y, rightLimit, y + editText.getMeasuredHeight());
