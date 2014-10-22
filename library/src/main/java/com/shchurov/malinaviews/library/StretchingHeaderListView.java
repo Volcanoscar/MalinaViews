@@ -19,6 +19,8 @@ public class StretchingHeaderListView extends ListView {
     private float prevY;
     private float flexibility = DEFAULT_FLEXIBILITY;
     private int backAnimationTime = DEFAULT_BACK_ANIMATION_TIME;
+    private int touchSlop;
+    private float firstY;
 
     public StretchingHeaderListView(Context context) {
         super(context);
@@ -54,6 +56,20 @@ public class StretchingHeaderListView extends ListView {
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        float y = ev.getRawY();
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            firstY = y;
+        } else if (firstY != -1 && ev.getAction() == MotionEvent.ACTION_MOVE && Math.abs(firstY - y) > touchSlop) {
+            firstY = -1;
+            prevY = y;
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (headerView == null)
             return super.onTouchEvent(event);
@@ -85,7 +101,7 @@ public class StretchingHeaderListView extends ListView {
     }
 
     private boolean isScrollOnTop() {
-        return getChildCount() == 0 || getChildAt(0).getTop() == 0;
+        return getChildCount() == 0 || (getFirstVisiblePosition() == 0 && getChildAt(0).getTop() == 0);
     }
 
     private void animateToStaticState() {
