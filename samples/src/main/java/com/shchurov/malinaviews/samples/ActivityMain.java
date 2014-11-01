@@ -22,6 +22,7 @@ public class ActivityMain extends FragmentActivity implements View.OnClickListen
         findViewById(R.id.btn_camera_gridview).setOnClickListener(this);
         findViewById(R.id.btn_tagsview).setOnClickListener(this);
         findViewById(R.id.btn_animated_textviews).setOnClickListener(this);
+        findViewById(R.id.btn_circular_scrollview).setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +45,9 @@ public class ActivityMain extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.btn_animated_textviews:
                 openFragment(FragmentAnimatedTextViews.createInstance());
+                break;
+            case R.id.btn_circular_scrollview:
+                openFragment(FragmentCircularScrollView.createInstance());
                 break;
         }
     }

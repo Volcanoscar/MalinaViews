@@ -1,51 +1,60 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@android:color/white">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_stretching_header"
-            style="@style/MenuScreenButton"
-            android:text="@string/stretching_header_list_view"
-             android:layout_marginTop="0dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_scaling_items"
-            style="@style/MenuScreenButton"
-            android:text="@string/scaling_items_list_view" />
+            <Button
+                android:id="@+id/btn_stretching_header"
+                style="@style/MenuScreenButton"
+                android:text="@string/stretching_header_list_view"/>
 
-        <Button
-            android:id="@+id/btn_scaling_indicator"
-            style="@style/MenuScreenButton"
-            android:text="@string/scaling_view_pager_indicator" />
+            <Button
+                android:id="@+id/btn_scaling_items"
+                style="@style/MenuScreenButton"
+                android:text="@string/scaling_items_list_view"/>
 
-        <Button
-            android:id="@+id/btn_camera_gridview"
-            style="@style/MenuScreenButton"
-            android:text="@string/camera_grid_view" />
+            <Button
+                android:id="@+id/btn_scaling_indicator"
+                style="@style/MenuScreenButton"
+                android:text="@string/scaling_view_pager_indicator"/>
 
-        <Button
-            android:id="@+id/btn_tagsview"
-            style="@style/MenuScreenButton"
-            android:text="@string/tags_view" />
+            <Button
+                android:id="@+id/btn_camera_gridview"
+                style="@style/MenuScreenButton"
+                android:text="@string/camera_grid_view"/>
 
-        <Button
-            android:id="@+id/btn_animated_textviews"
-            style="@style/MenuScreenButton"
-            android:text="@string/animated_textviews" />
+            <Button
+                android:id="@+id/btn_tagsview"
+                style="@style/MenuScreenButton"
+                android:text="@string/tags_view"/>
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_animated_textviews"
+                style="@style/MenuScreenButton"
+                android:text="@string/animated_textviews"/>
+
+            <Button
+                android:id="@+id/btn_circular_scrollview"
+                style="@style/MenuScreenButton"
+                android:text="@string/circular_scroll_view"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

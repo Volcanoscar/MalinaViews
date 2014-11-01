@@ -11,5 +11,6 @@
     <string name="done">DONE</string>
     <string name="animated_textviews">ANIMATED TEXTVIEWS</string>
     <string name="click_on_me">CLICK ON ME</string>
+    <string name="circular_scroll_view">CIRCULAR SCROLLVIEW</string>
 
 </resources>

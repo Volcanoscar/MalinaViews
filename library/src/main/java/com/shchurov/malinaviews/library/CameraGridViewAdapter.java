@@ -104,8 +104,12 @@ public abstract class CameraGridViewAdapter<T> extends BaseAdapter {
                             Camera.Parameters params = camera.getParameters();
                             Camera.Size previewSize = params.getPreviewSize();
                             // because of strange issue on Nexus devices
-                            params.setPictureSize(previewSize.width, previewSize.height);
-                            camera.setParameters(params);
+                            try {
+                                params.setPictureSize(previewSize.width, previewSize.height);
+                                camera.setParameters(params);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             int w = previewSize.width;
                             int h = previewSize.height;
                             final Matrix matrix = new Matrix();
