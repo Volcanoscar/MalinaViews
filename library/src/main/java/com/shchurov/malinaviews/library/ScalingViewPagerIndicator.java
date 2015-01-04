@@ -23,7 +23,7 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
 
     private ViewPager viewPager;
     private ViewPager.OnPageChangeListener onPageChangeListener;
-    private LinearLayout childLayout;
+    private LinearLayout titlesLayout;
     private int titlesOnScreen = DEFAULT_TITLES_ON_SCREEN;
     private float minScale = DEFAULT_MIN_SCALE;
     private float scaleExponent = DEFAULT_SCALE_EXPONENT;
@@ -46,6 +46,14 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
         init();
     }
 
+    private void init() {
+        titlesLayout = new LinearLayout(getContext());
+        setHorizontalScrollBarEnabled(false);
+        titlesLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        titlesLayout.setGravity(Gravity.CENTER_VERTICAL);
+        addView(titlesLayout);
+    }
+
     public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
         if (viewPager.getAdapter() == null)
@@ -54,7 +62,7 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
         notifyDataSetChanged();
         post(new Runnable() {
             @Override public void run() {
-                recalculateChildWidth();
+                calculateTitlesWidth();
             }
         });
     }
@@ -64,19 +72,39 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
     }
 
     public void notifyDataSetChanged() {
+        refreshTitles();
+        removeRedundantTitles();
+    }
+
+    private void refreshTitles() {
         PagerAdapter adapter = viewPager.getAdapter();
         for (int i = 0; i < adapter.getCount(); i++) {
             TextView tv;
-            if (childLayout.getChildCount() == i) {
+            if (titlesLayout.getChildCount() == i) {
                 tv = createTitleView();
-                childLayout.addView(tv);
+                titlesLayout.addView(tv);
             } else {
                 tv = (TextView) getChildAt(i);
             }
             tv.setText(adapter.getPageTitle(i));
         }
-        if (childLayout.getChildCount() > adapter.getCount()) {
-            childLayout.removeViews(adapter.getCount(), childLayout.getChildCount() - adapter.getCount());
+    }
+
+    private TextView createTitleView() {
+        TextView tv = new TextView(getContext());
+        tv.setLayoutParams(new LinearLayout.LayoutParams(getWidth() / titlesOnScreen, LayoutParams.WRAP_CONTENT));
+        tv.setTextColor(textColor);
+        tv.setSingleLine(true);
+        tv.setEllipsize(TextUtils.TruncateAt.END);
+        tv.setGravity(Gravity.CENTER_HORIZONTAL);
+        tv.setTextSize(textSize);
+        return tv;
+    }
+
+    private void removeRedundantTitles() {
+        PagerAdapter adapter = viewPager.getAdapter();
+        if (titlesLayout.getChildCount() > adapter.getCount()) {
+            titlesLayout.removeViews(adapter.getCount(), titlesLayout.getChildCount() - adapter.getCount());
         }
     }
 
@@ -87,12 +115,12 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        View titleView = childLayout.getChildAt(position);
-        int nextTitleViewWidth = position == childLayout.getChildCount() - 1 ? 0 : childLayout.getChildAt(position + 1).getWidth();
+        View titleView = titlesLayout.getChildAt(position);
+        int nextTitleViewWidth = position == titlesLayout.getChildCount() - 1 ? 0 : titlesLayout.getChildAt(position + 1).getWidth();
         float length = (titleView.getWidth() + nextTitleViewWidth) / 2;
         int offset = (int) (titleView.getX() - (getWidth() - titleView.getWidth()) / 2 + length * positionOffset);
         scrollTo(offset, 0);
-        recalculateChildScalesAndAlpha();
+        recalculateTitlesScalesAndAlpha();
         if (onPageChangeListener != null) {
             onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
         }
@@ -112,47 +140,29 @@ public class ScalingViewPagerIndicator extends HorizontalScrollView implements V
         }
     }
 
-    private void init() {
-        childLayout = new LinearLayout(getContext());
-        setHorizontalScrollBarEnabled(false);
-        childLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        childLayout.setGravity(Gravity.CENTER_VERTICAL);
-        addView(childLayout);
-    }
-
-    private TextView createTitleView() {
-        TextView tv = new TextView(getContext());
-        tv.setLayoutParams(new LinearLayout.LayoutParams(getWidth() / titlesOnScreen, LayoutParams.WRAP_CONTENT));
-        tv.setTextColor(textColor);
-        tv.setSingleLine(true);
-        tv.setEllipsize(TextUtils.TruncateAt.END);
-        tv.setGravity(Gravity.CENTER_HORIZONTAL);
-        tv.setTextSize(textSize);
-        return tv;
-    }
-
-    private void recalculateChildWidth() {
-        for (int i = 0; i < childLayout.getChildCount(); i++) {
-            View titleView = childLayout.getChildAt(i);
+    private void calculateTitlesWidth() {
+        for (int i = 0; i < titlesLayout.getChildCount(); i++) {
+            View titleView = titlesLayout.getChildAt(i);
             titleView.getLayoutParams().width = getWidth() / titlesOnScreen;
             titleView.forceLayout();
         }
-        int padding = (getWidth() - childLayout.getChildAt(0).getLayoutParams().width) / 2;
-        childLayout.setPadding(padding, 0, padding, 0);
-        childLayout.setClipToPadding(false);
-        childLayout.requestLayout();
-        childLayout.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-            @Override public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                childLayout.removeOnLayoutChangeListener(this);
-                recalculateChildScalesAndAlpha();
+        int padding = (getWidth() - titlesLayout.getChildAt(0).getLayoutParams().width) / 2;
+        titlesLayout.setPadding(padding, 0, padding, 0);
+        titlesLayout.setClipToPadding(false);
+        titlesLayout.requestLayout();
+        titlesLayout.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                titlesLayout.removeOnLayoutChangeListener(this);
+                recalculateTitlesScalesAndAlpha();
             }
         });
     }
 
-    private void recalculateChildScalesAndAlpha() {
+    private void recalculateTitlesScalesAndAlpha() {
         float middle = getWidth() / 2;
-        for (int i = 0; i < childLayout.getChildCount(); i++) {
-            View child = childLayout.getChildAt(i);
+        for (int i = 0; i < titlesLayout.getChildCount(); i++) {
+            View child = titlesLayout.getChildAt(i);
             if (child.getX() > getWidth() + getScrollX() || child.getX() + child.getWidth() < getScrollX())
                 continue;
             float childMiddle = child.getX() + child.getWidth() / 2 - getScrollX();

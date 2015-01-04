@@ -28,17 +28,21 @@ public class FragmentCircularScrollView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_circular_scrollview, container, false);
-        CircularScrollView circular_scrollview = (CircularScrollView) layout.findViewById(R.id.circular_scrollview);
+        CircularScrollView circularScrollView = (CircularScrollView) layout.findViewById(R.id.circular_scrollview);
+        fillCircularScrollView(circularScrollView);
+        return layout;
+    }
+
+    private void fillCircularScrollView(CircularScrollView circularScrollView) {
         ImageView centralView = new ImageView(getActivity());
         centralView.setImageResource(R.drawable.circle_sample);
-        circular_scrollview.setCentralView(centralView);
+        circularScrollView.setCentralView(centralView);
         int itemsSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ITEMS_SIZE_DP, getResources().getDisplayMetrics());
         for (int i = 0; i < 11; i++) {
             CircleTextView view = new CircleTextView(getActivity(), "item " + i);
             view.setLayoutParams(new ViewGroup.LayoutParams(itemsSize, itemsSize));
-            circular_scrollview.addView(view);
+            circularScrollView.addView(view);
         }
-        return layout;
     }
 
     private static class CircleTextView extends TextView {
@@ -51,6 +55,10 @@ public class FragmentCircularScrollView extends Fragment {
 
         private CircleTextView(Context context, String text) {
             super(context);
+            init(text);
+        }
+
+        private void init(String text) {
             paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setColor(Color.BLACK);
             strokeWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, STROKE_WIDTH_DP, getResources().getDisplayMetrics());

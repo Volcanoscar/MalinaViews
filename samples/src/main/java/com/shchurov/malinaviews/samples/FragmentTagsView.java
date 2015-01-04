@@ -24,7 +24,18 @@ public class FragmentTagsView extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         View layout = inflater.inflate(R.layout.fragment_tags_view, container, false);
-        final TagsView tagsView = (TagsView) layout.findViewById(R.id.tags_view);
+        TagsView tagsView = (TagsView) layout.findViewById(R.id.tags_view);
+        setupTagsView(tagsView);
+        layout.findViewById(R.id.tv_done).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        return layout;
+    }
+
+    private void setupTagsView(final TagsView tagsView) {
         tagsView.setTagsResourceId(R.layout.item_tag);
         int spacing = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, SPACING_DP, getResources().getDisplayMetrics());
         tagsView.setSpacing(spacing, spacing);
@@ -37,13 +48,6 @@ public class FragmentTagsView extends DialogFragment {
                 tagsView.removeTag(tag);
             }
         });
-        layout.findViewById(R.id.tv_done).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-        return layout;
     }
 
 }

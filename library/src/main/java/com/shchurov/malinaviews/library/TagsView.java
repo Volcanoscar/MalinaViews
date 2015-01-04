@@ -62,7 +62,7 @@ public class TagsView extends ViewGroup {
                 clearingEditText = false;
                 return null;
             }
-            // doesn't work on some devices (nexus4, nexus7, ...), method not called
+            // doesn't work on some devices (nexus4, nexus7, oneplus one, ...), method not called
             if (end == 0 && dend == 0) {
                 removeLastTag();
             }

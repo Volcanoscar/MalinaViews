@@ -37,6 +37,10 @@ public class StretchingHeaderListView extends ListView {
         init();
     }
 
+    private void init() {
+        setOverScrollMode(OVER_SCROLL_NEVER);
+    }
+
     @Override
     public void addHeaderView(View v, Object data, boolean isSelectable) {
         if (getHeaderViewsCount() != 0) {
@@ -55,6 +59,7 @@ public class StretchingHeaderListView extends ListView {
         }
     }
 
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         float y = ev.getRawY();
@@ -67,7 +72,6 @@ public class StretchingHeaderListView extends ListView {
         }
         return false;
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -94,10 +98,6 @@ public class StretchingHeaderListView extends ListView {
             }
         }
         return super.onTouchEvent(event);
-    }
-
-    private void init() {
-        setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
     private boolean isScrollOnTop() {

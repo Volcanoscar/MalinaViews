@@ -24,8 +24,6 @@ public class FragmentCameraGridView extends Fragment {
 
     private static final int[] IMAGES = {R.drawable.medium_sample_1, R.drawable.medium_sample_2, R.drawable.medium_sample_3};
 
-    private CameraGridViewAdapter<Integer> adapter;
-
     public static FragmentCameraGridView createInstance() {
         return new FragmentCameraGridView();
     }
@@ -33,12 +31,12 @@ public class FragmentCameraGridView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final GridView gv = (GridView) inflater.inflate(R.layout.fragment_camera_grid_view, container, false);
-        List<Integer> items = new ArrayList<Integer>();
-        Random random = new Random();
-        for (int i = 0; i < 29; i++) {
-            items.add(IMAGES[random.nextInt(IMAGES.length)]);
-        }
-        adapter = new CameraGridViewAdapter<Integer>(getActivity(), items) {
+        fillGridView(gv);
+        return gv;
+    }
+
+    private void fillGridView(GridView gv) {
+        CameraGridViewAdapter<Integer> adapter = new CameraGridViewAdapter<Integer>(getActivity(), generateItems()) {
             @Override
             public View getNormalView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
@@ -51,7 +49,15 @@ public class FragmentCameraGridView extends Fragment {
             }
         };
         gv.setAdapter(adapter);
-        return gv;
+    }
+
+    private List<Integer> generateItems() {
+        List<Integer> items = new ArrayList<Integer>();
+        Random random = new Random();
+        for (int i = 0; i < 29; i++) {
+            items.add(IMAGES[random.nextInt(IMAGES.length)]);
+        }
+        return items;
     }
 
     private static class SquareImageView extends ImageView {

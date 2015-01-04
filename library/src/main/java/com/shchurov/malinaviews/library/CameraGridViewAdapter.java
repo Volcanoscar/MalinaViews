@@ -63,20 +63,22 @@ public abstract class CameraGridViewAdapter<T> extends BaseAdapter {
         }
         if (type == TYPE_CAMERA) {
             if (convertView == null) {
-                SquareFrameLayout fl = new SquareFrameLayout(context);
-                fl.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
-                fl.setBackgroundColor(Color.BLACK);
-                TextureView textureView = new TextureView(context);
-                textureView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-                fl.addView(textureView);
-                // Because of some tricky getView() 0-position behavior after moving app back from background-state we need to use inner
-                // class instead of implementing listener in adapter.
-                textureView.setSurfaceTextureListener(new SurfaceListener(textureView));
-                convertView = fl;
+                convertView = createCameraView();
             }
             return convertView;
         }
         return getNormalView(position, convertView, parent);
+    }
+
+    private View createCameraView() {
+        SquareFrameLayout fl = new SquareFrameLayout(context);
+        fl.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
+        fl.setBackgroundColor(Color.BLACK);
+        TextureView textureView = new TextureView(context);
+        textureView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        fl.addView(textureView);
+        textureView.setSurfaceTextureListener(new SurfaceListener(textureView));
+        return fl;
     }
 
     public abstract View getNormalView(int position, View convertView, ViewGroup parent);
