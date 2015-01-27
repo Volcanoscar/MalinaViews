@@ -1,4 +1,4 @@
-Some of views that I have created and found interesting. You can use it freely.
+Some of views that I have created and found interesting. Feel free to use it and to write me about any issues.
 
 
 Stretching header:
